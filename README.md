@@ -4,22 +4,22 @@ Self-checkout demo for AutoML Vision + Edge TPU
 ## Requirements
 - Raspberry Pi 3
 - [Coral USB accelerator](https://coral.withgoogle.com/products/accelerator)
-- .tflite model file trained with [Cloud AutoML Vision Edge](https://cloud.google.com/vision/automl/docs/edge-quickstart)
+- Model file: this repo doesn't include the model file. You need to collect training images with labels and create your own .tflite file. See [Cloud AutoML Vision Edge doc](https://cloud.google.com/vision/automl/docs/edge-quickstart) to learn the model creation process.
 
 ## Install required software
+
+### Install Edge TPU SDK
+See https://coral.withgoogle.com/docs/accelerator/get-started/#set-up-on-linux-or-raspberry-pi
 
 ### Set screen resolution
 > sudo vi /boot/config.txt
 
-Uncomment the following lines and edit the width and height.
+Uncomment the following lines and edit the width and height:
 
 ```
 framebuffer_width=1024
 framebuffer_height=600
 ```
-
-### Install Edge TPU SDK
-See https://coral.withgoogle.com/docs/accelerator/get-started/#set-up-on-linux-or-raspberry-pi
 
 ### Install OpenCV
 > pip3 install opencv-python 
@@ -39,7 +39,23 @@ On the desktop, change the screen saver setting as follows:
 ```
 Menu > Preferences > Screensaver > [Display Modes] > Mode: Disable Screen Saver
 ```
+
 ### Place your TF Lite model as readable with the following path
 
 > /home/pi/model.tflite
 
+## Test the Edge TPU
+
+> cd automl-self-checkout
+
+> python3 test.py
+
+## Run the Self-checkout app
+
+Edit `labels` and `prices` definition in `main.py`, and the image files and their names in `/img` folder, according to your model definition. Then, run the code: 
+
+> python3 main.py
+
+To stop the app, use:
+
+> killall python3
