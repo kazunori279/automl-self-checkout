@@ -5,7 +5,7 @@ from edgetpu.classification.engine import ClassificationEngine
 from PIL import Image
 
 # open an Image
-img = Image.open('img/sample_pants.jpg')
+img = Image.open('img/sample_poloshirt.jpg')
 
 # init Edge TPU with the model
 tpu = ClassificationEngine('/home/pi/model.tflite')
