@@ -8,9 +8,6 @@ Self-checkout demo for AutoML Vision + Edge TPU
 
 ## Install required software
 
-### Install Edge TPU SDK
-See https://coral.withgoogle.com/docs/accelerator/get-started/#set-up-on-linux-or-raspberry-pi
-
 ### Set screen resolution
 > sudo vi /boot/config.txt
 
@@ -22,14 +19,25 @@ framebuffer_height=600
 ```
 
 ### Install OpenCV
+
+Install OpenCV for USB camera capture.
+
 > pip3 install opencv-python 
+
+Uninstall numpy to avoid version confliction with Edge TPU SDK.
+
+> pip3 uninstall numpy
+
+### Install ImageTk
+
+Install ImageTk as UI lib.
 
 > sudo apt-get install -y libcblas-dev libhdf5-dev libhdf5-serial-dev libatlas-base-dev libjasper-dev  libqtgui4  libqt4-test
 
-### Install ImageTk
 > sudo apt-get install python3-pil.imagetk
 
 ### Disable screen saver
+
 > sudo apt-get install xscreensaver
 
 > sudo reboot
@@ -40,22 +48,78 @@ On the desktop, change the screen saver setting as follows:
 Menu > Preferences > Screensaver > [Display Modes] > Mode: Disable Screen Saver
 ```
 
-### Place your TF Lite model as readable with the following path
+### Install Edge TPU SDK
+See: https://coral.withgoogle.com/docs/accelerator/get-started/#set-up-on-linux-or-raspberry-pi
+
+### Place your TF Lite model on the following path
 
 > /home/pi/model.tflite
 
-## Test the Edge TPU
+### Test the model with Edge TPU
 
 > cd automl-self-checkout
 
 > python3 test.py
 
-## Run the Self-checkout app
+This should return something like:
 
-Edit `labels` and `prices` definition in `main.py`, and the image files and their names in `/img` folder, according to your model definition. Then, run the code: 
+> [(18, 0.84765625), (0, 0.1015625)]
+
+that means the model recognizes the sample polo shirt image at score of 84.7%.
+
+### Configure the labels, prices and images
+
+Edit `labels` and `prices` definition in `main.py`, and the image files and their names in `/img` folder, according to your model definition.
+
+### (Optional) Auto start setting
+
+If you want to set up an auto start of the demo, use the following:
+
+Add a service file:
+
+> sudo vi /etc/systemd/system/automl-self-checkout.service
+
+```
+[Unit]
+Description=automl-self-checkout demo
+
+[Service]
+User=pi
+ExecStart=/usr/bin/python3 /home/pi/automl-self-checkout/main.py
+WorkingDirectory=/home/pi/automl-self-checkout
+Environment=DISPLAY=:0.0
+
+[Install]
+WantedBy=graphical.target
+```
+
+Reload systemd:
+
+> sudo systemctl daemon-reload
+
+Enable and check the status:
+
+> sudo systemctl enable automl-self-checkout.service
+
+> sudo systemctl status automl-self-checkout.service
+
+Confirm the service would start:
+
+> sudo systemctl start automl-self-checkout.service
+
+## Run 
+
+To run the app:
+
+> cd automl-self-checkout
 
 > python3 main.py
 
-To stop the app, use:
+To stop the app, type `<Alt>+F4` on the UI, or: 
 
 > killall python3
+
+## Known issues
+
+- UI response slows down when you runs the app over some hours: the `ui_updates()` function slows down due to unknow reason. Restarting the app solve this.
+

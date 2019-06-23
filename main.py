@@ -275,20 +275,11 @@ def main():
     Main loop.
     """
     while True:
-        start = time.time()
         ui_updates()
-        print('UI update: ' + str(time.time() - start)) 
-
-        start = time.time()
         img_pil = capture_image()
-        print('Capture: ' + str(time.time() - start)) 
-
-        start = time.time()
         label, score = classify_image(img_pil)
         if label:
             show_or_hide_buttons(label, score)
-        print('Classify: ' + str(time.time() - start)) 
-        print('\n')
 
 if __name__ == '__main__':
     main()
