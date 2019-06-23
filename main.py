@@ -1,5 +1,5 @@
 """
-Self-service register demo
+Self-checkout demo for AutoML Vision
 """
 
 import os

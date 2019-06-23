@@ -39,8 +39,7 @@ On the desktop, change the screen saver setting as follows:
 ```
 Menu > Preferences > Screensaver > [Display Modes] > Mode: Disable Screen Saver
 ```
-## Install the app
-
 ### Place your TF Lite model as readable with the following path
-/home/pi/model.tflite
+
+> /home/pi/model.tflite
 
