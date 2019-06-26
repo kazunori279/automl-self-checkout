@@ -3,8 +3,11 @@ Self-checkout demo for AutoML Vision + Edge TPU
 
 ## Requirements
 - Raspberry Pi 3
+- [Touch screen monitor for RasPi](https://www.amazon.com/UPERFECT-Monitor-Resolution-1024%C3%97600-Raspberry/dp/B07L62H6YR/)
+- [Document camera with USB](https://www.amazon.com/Ipevo-Ziggi-HD-High-Definition-Document-Camera/dp/B01530XGMA/)
 - [Coral USB accelerator](https://coral.withgoogle.com/products/accelerator)
 - Model file: this repo doesn't include the model file. You need to collect training images with labels and create your own .tflite file. See [Cloud AutoML Vision Edge doc](https://cloud.google.com/vision/automl/docs/edge-quickstart) to learn the model creation process.
+- This demo doesn't require any internet connection while working.
 
 ## Install required software
 
