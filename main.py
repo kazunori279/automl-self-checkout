@@ -227,7 +227,7 @@ def capture_image():
     """
     global img_tk
     r, img_cam = cam.read()
-    img_pil = Image.fromarray(img_cam)
+    img_pil = Image.fromarray(cv2.cvtColor(img_cam, cv2.COLOR_BGR2RGB))
     img_tk = ImageTk.PhotoImage(img_pil)
     tk_cam.create_image(0, 0, image=img_tk, anchor='nw')
     return img_pil
