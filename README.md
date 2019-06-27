@@ -8,6 +8,7 @@ Self-checkout demo for AutoML Vision + Edge TPU
 - [Coral USB accelerator](https://coral.withgoogle.com/products/accelerator)
 - Model file: this repo doesn't include the model file. You need to collect training images with labels and create your own .tflite file. See [Cloud AutoML Vision Edge doc](https://cloud.google.com/vision/automl/docs/edge-quickstart) to learn the model creation process.
 - This demo doesn't require any internet connection while working.
+- Sample objects. Kids clothes easily fit the camera view. 
 
 ## Install required software
 
